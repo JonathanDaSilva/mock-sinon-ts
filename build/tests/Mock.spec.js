@@ -1,0 +1,64 @@
+var chai = require('chai');
+var expect = chai.expect;
+var Mock_ts_1 = require("./../src/Mock.js");
+var Bar = (function () {
+    function Bar() {
+        this.test = 'test';
+    }
+    Bar.prototype.foobar = function () { };
+    Bar.prototype.test1 = function () { };
+    return Bar;
+})();
+var barMethods = [
+    'foobar',
+    'test1',
+];
+var Foo = (function () {
+    function Foo() {
+        this.test = 'test';
+        this.bar = 'bar';
+    }
+    Foo.bar = function () { };
+    Foo.not = function () { };
+    Foo.prototype.foobar = function () { };
+    Foo.prototype.test1 = function () { };
+    Foo.prototype.test2 = function () { };
+    Foo.prototype.test3 = function () { };
+    return Foo;
+})();
+var fooMethods = [
+    'foobar',
+    'test1',
+    'test2',
+    'test3',
+];
+describe("Mock", function () {
+    var fooMock;
+    var barMock;
+    beforeEach(function () {
+        fooMock = Mock_ts_1.Mock(Foo);
+        barMock = Mock_ts_1.Mock(Bar);
+    });
+    it("should have only the instance methods", function () {
+        var fooMockMethods = Object.keys(fooMock);
+        var barMockMethods = Object.keys(barMock);
+        expect(fooMockMethods).to.have.length(fooMethods.length);
+        expect(fooMockMethods).to.have.members(fooMethods);
+        expect(barMockMethods).to.have.length(barMethods.length);
+        expect(barMockMethods).to.have.members(barMethods);
+    });
+    it("should put a spy on every method", function () {
+        for (var _i = 0; _i < fooMethods.length; _i++) {
+            var method = fooMethods[_i];
+            expect(fooMock[method]).to.be.a('function');
+            expect(fooMock[method]).to.contain.all.keys(['called', 'calledOnce']);
+        }
+        for (var _a = 0; _a < barMethods.length; _a++) {
+            var method = barMethods[_a];
+            expect(barMock[method]).to.be.a('function');
+            expect(barMock[method]).to.contain.all.keys(['called', 'calledOnce']);
+        }
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL01vY2suc3BlYy50cyJdLCJuYW1lcyI6WyJCYXIiLCJCYXIuY29uc3RydWN0b3IiLCJCYXIuZm9vYmFyIiwiQmFyLnRlc3QxIiwiRm9vIiwiRm9vLmNvbnN0cnVjdG9yIiwiRm9vLmJhciIsIkZvby5ub3QiLCJGb28uZm9vYmFyIiwiRm9vLnRlc3QxIiwiRm9vLnRlc3QyIiwiRm9vLnRlc3QzIl0sIm1hcHBpbmdzIjoiQUFBQSxJQUFZLElBQUksV0FBTyxNQUN2QixDQUFDLENBRDRCO0FBRTdCLElBQUksTUFBTSxHQUFHLElBQUksQ0FBQyxNQUFNLENBQUE7QUFFeEIsd0JBQXFCLGtCQUVyQixDQUFDLENBRnNDO0FBRXZDO0lBS0lBO1FBQ0lDLElBQUlBLENBQUNBLElBQUlBLEdBQUdBLE1BQU1BLENBQUFBO0lBQ3RCQSxDQUFDQTtJQUxNRCxvQkFBTUEsR0FBYkEsY0FBaUJFLENBQUNBO0lBQ1hGLG1CQUFLQSxHQUFaQSxjQUFnQkcsQ0FBQ0E7SUFLckJILFVBQUNBO0FBQURBLENBUkEsQUFRQ0EsSUFBQTtBQUNELElBQUksVUFBVSxHQUFHO0lBQ2IsUUFBUTtJQUNSLE9BQU87Q0FDVixDQUFBO0FBRUQ7SUFBQUk7UUFHV0MsU0FBSUEsR0FBV0EsTUFBTUEsQ0FBQUE7UUFDckJBLFFBQUdBLEdBQVlBLEtBQUtBLENBQUFBO0lBSy9CQSxDQUFDQTtJQVJpQkQsT0FBR0EsR0FBakJBLGNBQXFCRSxDQUFDQTtJQUNSRixPQUFHQSxHQUFqQkEsY0FBcUJHLENBQUNBO0lBR2ZILG9CQUFNQSxHQUFiQSxjQUFpQkksQ0FBQ0E7SUFDWEosbUJBQUtBLEdBQVpBLGNBQWdCSyxDQUFDQTtJQUNWTCxtQkFBS0EsR0FBWkEsY0FBZ0JNLENBQUNBO0lBQ1ZOLG1CQUFLQSxHQUFaQSxjQUFnQk8sQ0FBQ0E7SUFDckJQLFVBQUNBO0FBQURBLENBVEEsQUFTQ0EsSUFBQTtBQUVELElBQUksVUFBVSxHQUFHO0lBQ2IsUUFBUTtJQUNSLE9BQU87SUFDUCxPQUFPO0lBQ1AsT0FBTztDQUNWLENBQUE7QUFFRCxRQUFRLENBQUMsTUFBTSxFQUFFO0lBQ2IsSUFBSSxPQUFPLENBQUE7SUFDWCxJQUFJLE9BQU8sQ0FBQTtJQUVYLFVBQVUsQ0FBQztRQUNQLE9BQU8sR0FBRyxjQUFJLENBQUMsR0FBRyxDQUFDLENBQUE7UUFDbkIsT0FBTyxHQUFHLGNBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQTtJQUN2QixDQUFDLENBQUMsQ0FBQTtJQUVGLEVBQUUsQ0FBQyx1Q0FBdUMsRUFBRTtRQUN4QyxJQUFJLGNBQWMsR0FBRyxNQUFNLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFBO1FBQ3pDLElBQUksY0FBYyxHQUFHLE1BQU0sQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLENBQUE7UUFFekMsTUFBTSxDQUFDLGNBQWMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFVBQVUsQ0FBQyxNQUFNLENBQUMsQ0FBQTtRQUN4RCxNQUFNLENBQUMsY0FBYyxDQUFDLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsVUFBVSxDQUFDLENBQUE7UUFFbEQsTUFBTSxDQUFDLGNBQWMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFVBQVUsQ0FBQyxNQUFNLENBQUMsQ0FBQTtRQUN4RCxNQUFNLENBQUMsY0FBYyxDQUFDLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsVUFBVSxDQUFDLENBQUE7SUFDdEQsQ0FBQyxDQUFDLENBQUE7SUFFRixFQUFFLENBQUMsa0NBQWtDLEVBQUU7UUFDbkMsR0FBRyxDQUFBLENBQWUsVUFBVSxFQUF4QixzQkFBVSxFQUFWLElBQXdCLENBQUM7WUFBekIsSUFBSSxNQUFNLEdBQUksVUFBVSxJQUFkO1lBQ1YsTUFBTSxDQUFDLE9BQU8sQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLFVBQVUsQ0FBQyxDQUFBO1lBQzNDLE1BQU0sQ0FBQyxPQUFPLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQyxRQUFRLEVBQUUsWUFBWSxDQUFDLENBQUMsQ0FBQTtTQUN4RTtRQUVELEdBQUcsQ0FBQSxDQUFlLFVBQVUsRUFBeEIsc0JBQVUsRUFBVixJQUF3QixDQUFDO1lBQXpCLElBQUksTUFBTSxHQUFJLFVBQVUsSUFBZDtZQUNWLE1BQU0sQ0FBQyxPQUFPLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxVQUFVLENBQUMsQ0FBQTtZQUMzQyxNQUFNLENBQUMsT0FBTyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLE9BQU8sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLENBQUMsUUFBUSxFQUFFLFlBQVksQ0FBQyxDQUFDLENBQUE7U0FDeEU7SUFDTCxDQUFDLENBQUMsQ0FBQTtBQUNOLENBQUMsQ0FBQyxDQUFBIiwiZmlsZSI6InRlc3RzL01vY2suc3BlYy5qcyIsInNvdXJjZXNDb250ZW50IjpbbnVsbF0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
