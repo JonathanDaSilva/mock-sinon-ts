@@ -1,6 +1,6 @@
 {
   "name": "mock-sinon.ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Mocking for SinonJS",
   "main": "build/src/index.js",
   "dependencies": {
@@ -23,7 +23,7 @@
     "merge2": "^0.3.6"
   },
   "typescript": {
-    "definition": "./build/definitions/index.d.ts"
+    "definition": "./build/definitions/src/Mock.d.ts"
   },
   "scripts": {
     "test": "gulp test"
