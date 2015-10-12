@@ -1,6 +1,6 @@
 {
-  "name": "mock-sinon.ts",
-  "version": "1.0.1",
+  "name": "mock-sinon-ts",
+  "version": "1.0.5",
   "description": "Mocking for SinonJS",
   "main": "build/src/index.js",
   "dependencies": {
@@ -24,9 +24,6 @@
   },
   "typescript": {
     "definition": "./build/definitions/src/Mock.d.ts"
-  },
-  "scripts": {
-    "test": "gulp test"
   },
   "author": "Jonathan Da Silva <dasilvabastos.jonathan@gmail.com>",
   "license": "MIT"
