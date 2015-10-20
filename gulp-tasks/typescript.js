@@ -1,28 +1,29 @@
 var gulp   = require('gulp')
 var $      = require('gulp-load-plugins')()
-var CONFIG = require('./config.json')
 var merge  = require('merge2')
+var CONFIG = require('yamljs').load(__dirname+'/config.yaml')
 
 module.exports = function(cb) {
   var tsProject   = $.typescript.createProject('tsconfig.json', {
-    outDir: CONFIG.out,
+    typescript: require('typescript'),
     declaration: true,
   })
-
-  var tsResult = gulp.src(CONFIG.typescript.in)
-    .pipe($.sourcemaps.init())
+  var tsStream = gulp.src(CONFIG.typescript.in)
+    .pipe($.changed(CONFIG.out, { extension: '.js' }))
+    .pipe($.plumber({errorHandler: $.notify.onError("Error: <%= error.message %>")}))
     .pipe($.typescript(tsProject))
 
   return merge([
-    tsResult.js
+    tsStream.js
+      // Replace all the preprocessor extention
+      // to their compiled version
       .pipe($.replace(".ts\"", ".js\""))
       .pipe($.replace(".ts\'", ".js\'"))
-      .pipe($.replace(".sass\"", ".css\""))
-      .pipe($.replace(".sass\'", ".css\'"))
-      .pipe($.sourcemaps.write())
       .pipe(gulp.dest(CONFIG.out)),
 
-    tsResult.dts
-      .pipe(gulp.dest(CONFIG.typescript.definition)),
-  ]);
+    tsStream.dts
+      .pipe(gulp.dest(CONFIG.typescript.definitions))
+  ])
+
 }
+module.exports.dependencies = []

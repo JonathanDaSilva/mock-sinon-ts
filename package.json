@@ -2,7 +2,7 @@
   "name": "mock-sinon-ts",
   "version": "1.0.7",
   "description": "Mocking for SinonJS",
-  "main": "./build/src/Mock.js",
+  "main": "./build/Mock.js",
   "dependencies": {
     "sinon": "^1.17.1"
   },
@@ -10,9 +10,13 @@
     "chai": "^3.3.0",
     "del": "^2.0.2",
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-changed": "^1.3.0",
     "gulp-dtsm": "github:9joneg/gulp-dtsm",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-mocha": "^2.1.3",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.1",
     "gulp-sourcemaps": "^1.6.0",
@@ -20,9 +24,11 @@
     "gulp-task-loader": "^1.2.3",
     "gulp-tsd": "0.0.4",
     "gulp-typescript": "^2.9.2",
-    "merge2": "^0.3.6"
+    "merge2": "^0.3.6",
+    "typescript": "^1.8.0-dev.20151020",
+    "yamljs": "^0.2.4"
   },
-  "typings": "./build/definitions/src/Mock.d.ts",
+  "typings": "./definitions/Mock.d.ts",
   "author": "Jonathan Da Silva <dasilvabastos.jonathan@gmail.com>",
   "license": "MIT"
 }

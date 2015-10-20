@@ -5,7 +5,7 @@ var CONFIG = require('yamljs').load(__dirname+'/config.yaml')
 module.exports = function(cb) {
   $.sequence([
     'tests:clean',
-    'tests:compiler',
+    'tests:babel',
     'tests:mocha',
     'tests:clean',
   ])(cb)

@@ -1,0 +1,14 @@
+out: './build'
+test:
+  in:
+    - '!./node_modules/**/*.ts'
+    - './**/*.ts'
+  tests:
+    - './build-tests/tests/main.js'
+    - './build-tests/tests/*.spec.js'
+  out: './build-tests'
+typescript:
+  in:
+    - './typings/tsd.d.ts'
+    - './src/**/*.ts'
+  definitions: './definitions'

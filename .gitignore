@@ -1,2 +1,5 @@
 node_modules/**
 *~
+definitions/**
+build/**
+build-test/**
