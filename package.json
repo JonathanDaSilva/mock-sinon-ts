@@ -1,6 +1,6 @@
 {
   "name": "mock-sinon-ts",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Mocking for SinonJS",
   "main": "./build/Mock.js",
   "dependencies": {

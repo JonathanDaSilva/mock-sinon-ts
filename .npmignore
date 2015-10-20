@@ -1,0 +1,6 @@
+.git/**
+build-tests/**
+gulp-tasks/**
+src/**
+tests/**
+typings/**
