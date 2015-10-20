@@ -7,6 +7,8 @@ module.exports = function(cb) {
   var tsProject   = $.typescript.createProject('tsconfig.json', {
     typescript: require('typescript'),
     declaration: true,
+    module: 'common',
+    target: 'es5',
   })
   var tsStream = gulp.src(CONFIG.typescript.in)
     .pipe($.changed(CONFIG.out, { extension: '.js' }))
