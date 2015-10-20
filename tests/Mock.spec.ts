@@ -8,11 +8,13 @@ class Bar {
     public test: string
     public foobar() {}
     public test1() {}
+    public test2: string
 
     public constructor() {
         this.test = 'test'
     }
 }
+Bar.prototype.test2 = 'foobar'
 var barMethods = [
     'foobar',
     'test1',
